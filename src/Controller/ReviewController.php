@@ -12,8 +12,10 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Entity\Review;
 use App\Entity\User;
 use App\Entity\Tag;
+use App\Entity\Comment;
 
 use App\Form\ReviewFormType;
+use App\Form\CommentFormType;
 
 use App\Service\FuncCommon;
 
@@ -38,16 +40,19 @@ class ReviewController extends AbstractController
             $review->setCreationDate(new \DateTime('@'.strtotime('now')));
 
             $tags = $funcCommon->findTags($review->getContent());
-            foreach ($tags as $tagName) {
-                $tagRepository = $doctrine->getRepository(Tag::class);
-                $tag = $tagRepository->findOneBy(["name" => strtolower($tagName[0])]);
-                if ($tag) {
-                    $review->addTag($tag);
-                } else {
-                    $tag = new Tag();
-                    $tag->setName(strtolower($tagName[0]));
-                    $review->addTag($tag);
-                    $entityManager->persist($tag);
+            
+            if($tags) {
+                foreach ($tags as $tagName) {
+                    $tagRepository = $doctrine->getRepository(Tag::class);
+                    $tag = $tagRepository->findOneBy(["name" => strtolower($tagName[0])]);
+                    if ($tag) {
+                        $review->addTag($tag);
+                    } else {
+                        $tag = new Tag();
+                        $tag->setName(strtolower($tagName[0]));
+                        $review->addTag($tag);
+                        $entityManager->persist($tag);
+                    }
                 }
             }
 
@@ -159,13 +164,46 @@ class ReviewController extends AbstractController
     }
 
     #[Route('/review/{slug}', name: 'review')]
-    public function review(ManagerRegistry $doctrine, $slug): Response
+    public function review(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger, FuncCommon $funcCommon, $slug): Response
     {
         $reviewRepository = $doctrine->getRepository(Review::class);
         $review = $reviewRepository->findOneBy(["slug" => $slug]);
 
+        if ($review) {
+            $comment = new Comment();
+            $userRepository = $doctrine->getRepository(User::class);
+            $user = $userRepository->find($this->getUser()->getId());
+
+            $form = $this->createForm(CommentFormType::class, $comment);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
+                $comment = $form->getData();
+                $comment->setContent($funcCommon->mention($comment->getContent()));
+                $comment->setReview($review);
+                $comment->setUser($user);
+                $comment->setSlug($slugger->slug('comment-' . uniqid()));
+
+                $entityManager = $doctrine->getManager();
+                $entityManager->persist($comment);
+
+                try {
+                    $entityManager->flush();
+                    return $this->redirectToRoute("review", [
+                        "slug" => $slug,
+                    ]);
+                } catch (\Exception $e) {
+                    return new Response("Error" . $e->getMessage());
+                }
+            }
+            return $this->render('review/review.html.twig', [
+                'review' => $review,
+                'commentForm' => $form->createView(),
+            ]);
+        }
         return $this->render('review/review.html.twig', [
-            'review' => $review,
-        ]);
+            'review' => null,
+            'commentForm' => null,
+        ]);  
     }
 }

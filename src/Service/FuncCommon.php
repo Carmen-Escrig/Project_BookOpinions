@@ -25,8 +25,18 @@ use App\Entity\User;
      */
     public function findTags($text)
     {
-        $text = preg_match_all('/#[a-z0-9_]+/', $text, $tags);
-        return $tags;
+        $tagsNames = [];
+        $find = preg_match_all('/#[a-z0-9_]+/', $text, $tags);
+        if($find) {
+            foreach ($tags as $tag) {
+                $tag = str_replace('#', '', $tag);
+                $tagsNames[] = $tag;
+            }
+            return $tagsNames;
+        } else {
+            return false;
+        }
+        
     }
 
     /**

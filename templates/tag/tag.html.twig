@@ -1,0 +1,11 @@
+{% extends 'base.html.twig'%}
+{% block title %}
+	{{ (tag) ? tag.name : 'Not found' }}
+{% endblock %}
+{% block body %}
+	{% if tag %}
+        {{ tag.name }}
+	{% else %}
+		<p>Tag not found</p>
+	{% endif %}
+{% endblock %}

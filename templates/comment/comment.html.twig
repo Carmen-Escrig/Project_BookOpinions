@@ -1,0 +1,12 @@
+{% extends 'base.html.twig'%}
+{% block title %}
+	Comment
+{% endblock %}
+{% block body %}
+	{% if comment %}
+		{{include ("partials/_data-comment.html.twig", {'comment': comment})}}
+		{{ form(commentForm) }}
+	{% else %}
+		<p>Comment not found</p>
+	{% endif %}
+{% endblock %}

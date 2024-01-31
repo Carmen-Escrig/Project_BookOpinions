@@ -5,6 +5,7 @@
 {% block body %}
 	{% if review %}
 		{{include ("partials/_data-review.html.twig", {'review': review})}}
+		{{ form(commentForm) }}
 	{% else %}
 		<p>Review not found</p>
 	{% endif %}
