@@ -1,0 +1,10 @@
+<p>{{ book.isbn}}</p>
+<p>
+	By:
+	{% for author in book.authors %}
+		{{include ("partials/_data-author.html.twig", {'author': author})}}
+
+	{% endfor %}
+</p>
+
+<img src="{{ asset('uploads/covers/' ~ book.cover) }}" height="100">

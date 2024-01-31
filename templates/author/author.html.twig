@@ -1,0 +1,11 @@
+{% extends 'base.html.twig'%}
+{% block title %}
+	{{ (author) ? author.name : 'Not found' }}
+{% endblock %}
+{% block body %}
+	{% if author %}
+		{{include ("partials/_data-author.html.twig", {'author': author})}}
+	{% else %}
+		<p>Author not found</p>
+	{% endif %}
+{% endblock %}

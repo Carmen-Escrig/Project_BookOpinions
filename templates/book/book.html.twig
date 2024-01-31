@@ -1,0 +1,11 @@
+{% extends 'base.html.twig'%}
+{% block title %}
+	{{ (book) ? book.title : 'Not found' }}
+{% endblock %}
+{% block body %}
+	{% if book %}
+		{{include ("partials/_data-book.html.twig", {'book': book})}}
+	{% else %}
+		<p>Book not found</p>
+	{% endif %}
+{% endblock %}

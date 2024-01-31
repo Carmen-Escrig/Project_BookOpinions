@@ -1,0 +1,11 @@
+{% extends 'base.html.twig'%}
+{% block title %}
+	{{ (review) ? review.title : 'Not found' }}
+{% endblock %}
+{% block body %}
+	{% if review %}
+		{{include ("partials/_data-review.html.twig", {'review': review})}}
+	{% else %}
+		<p>Review not found</p>
+	{% endif %}
+{% endblock %}
