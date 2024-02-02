@@ -21,6 +21,21 @@ class LikeRepository extends ServiceEntityRepository
         parent::__construct($registry, Like::class);
     }
 
+    /**
+     * @return Like Returns a Like object
+     */
+    public function findLikeByUserReview($user, $review): ?Like
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.user = :u')
+            ->setParameter('u', $user)
+            ->andWhere('l.review = :r')
+            ->setPrrameter('r', $review)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
 //    /**
 //     * @return Like[] Returns an array of Like objects
 //     */

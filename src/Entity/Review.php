@@ -234,4 +234,11 @@ class Review
 
         return $this;
     }
+
+    public function subNumLikes(): ?int
+    {
+        $this->num_likes = $this->num_likes - 1;
+
+        return $this;
+    }
 }

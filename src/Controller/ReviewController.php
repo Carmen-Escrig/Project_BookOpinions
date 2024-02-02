@@ -165,6 +165,45 @@ class ReviewController extends AbstractController
         }
     }
 
+    #[Route('/review/{slug}/like', name: 'review_like')]
+    public function likeReview(ManagerRegistry $doctrine, $slug): JsonResponse
+    {
+        $reviewRepository = $doctrine->getRepository(review::class);
+        $review = $repository->findOneBy(["slug" => $slug]);
+        $userRepository = $doctrine->getRepository(User::class);
+        $user = $userRepository->find($this->getUser()->getId());
+        $likeRepository = $doctrine->getRepository(Like::class);
+        $like = $likeRepository->findLikeByUserReview($user, $review);
+    
+        $entityManager = $doctrine->getManager();
+
+        if($like) {
+            try {
+                $entityManager->remove($like);
+                $review->subNumLikes();
+                $entityManager->flush();
+                $result = false;
+                return new JsonResponse($result, Response::HTTP_OK);                     
+            } catch (\Exception $e) {
+                return new JsonResponse($result, Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            $like = new Like();
+            $like->setUser($user);
+            $like->setReview($review);
+
+            $entityManager->persist($like);
+            $review->addNumLikes();
+            try {
+                $entityManager->flush();
+                $result = true;
+                return new JsonResponse($result, Response::HTTP_OK);
+            } catch (\Exception $e) {
+                return new JsonResponse($result, Response::HTTP_INTERNAL_SERVER_ERROR);
+            }   
+        }
+    }
+
     #[Route('/review/{slug}', name: 'review')]
     public function review(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger, FuncCommon $funcCommon, $slug): Response
     {
