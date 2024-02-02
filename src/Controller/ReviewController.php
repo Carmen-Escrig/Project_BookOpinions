@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 use App\Entity\Review;
 use App\Entity\User;
 use App\Entity\Tag;
