@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 use App\Entity\Book;
 use App\Entity\Author;
 use App\Entity\Review;
@@ -43,6 +45,7 @@ class BookController extends AbstractController
             }
             $book = $form->getData();
             $book->setSlug($slugger->slug($book->getTitle() . '-' . uniqid()));
+            $book->setNumReviews(0);
     
             $entityManager->persist($book);
             try {
@@ -129,6 +132,25 @@ class BookController extends AbstractController
                 'book' => null
             ]);
         }
+    }
+
+    #[Route('/book/getMostPopular', name: 'book_get_mostPopular')]
+    public function mostPopularBooks(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger): JsonResponse
+    {
+        //$this->denyAccessUnlessGranted('ROLE_USER');
+
+        $bookRepository = $doctrine->getRepository(Book::class);
+        $books = $bookRepository->findMostPopular();
+
+        foreach ($books as $book) {
+            $arrayCollection[] = array(
+                "Title" => $book->getTitle(),
+                "Slug" => $book->getSlug(),
+                "Cover" => $book->getCover(),
+            );
+        }
+
+        return new JsonResponse($arrayCollection);
     }
 
     #[Route('/book/{slug}', name: 'book')]

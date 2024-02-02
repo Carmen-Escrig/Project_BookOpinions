@@ -33,6 +33,9 @@ class Book
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[ORM\Column]
+    private ?int $num_reviews = null;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
@@ -142,6 +145,25 @@ class Book
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getNumReviews(): ?int
+    {
+        return $this->num_reviews;
+    }
+
+    public function setNumReviews(int $num_reviews): static
+    {
+        $this->num_reviews = $num_reviews;
+
+        return $this;
+    }
+
+    public function addNumReviews(): ?int
+    {
+        $this->num_reviews = $this->num_reviews + 1;
 
         return $this;
     }

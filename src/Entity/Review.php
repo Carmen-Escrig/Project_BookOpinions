@@ -45,6 +45,9 @@ class Review
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $creation_date = null;
 
+    #[ORM\Column]
+    private ?int $num_likes = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -209,6 +212,25 @@ class Review
     public function setCreationDate(\DateTimeInterface $creation_date): static
     {
         $this->creation_date = $creation_date;
+
+        return $this;
+    }
+
+    public function getNumLikes(): ?int
+    {
+        return $this->num_likes;
+    }
+
+    public function setNumLikes(int $num_likes): static
+    {
+        $this->num_likes = $num_likes;
+
+        return $this;
+    }
+
+    public function addNumLikes(): ?int
+    {
+        $this->num_likes = $this->num_likes + 1;
 
         return $this;
     }

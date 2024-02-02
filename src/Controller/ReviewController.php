@@ -38,6 +38,8 @@ class ReviewController extends AbstractController
             $review->setCreator($user);
             $review->setSlug($slugger->slug($review->getTitle() . '-' . uniqid()));
             $review->setCreationDate(new \DateTime('@'.strtotime('now')));
+            $review->setNumLikes(0);
+            $review->getBook()->addNumReviews();
 
             $tags = $funcCommon->findTags($review->getContent());
             

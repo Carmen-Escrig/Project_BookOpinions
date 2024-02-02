@@ -36,6 +36,20 @@ class BookRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+    /**
+     * @return Book[] Returns an array of Book objects
+     */
+    public function findMostPopular(): array
+    {
+        return $this->createQueryBuilder('b')
+            ->orderBy('b.num_reviews', 'DESC')
+            ->setMaxResults(6)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
 //    public function findOneBySomeField($value): ?Book
 //    {
 //        return $this->createQueryBuilder('b')
