@@ -40,7 +40,6 @@ function createImages(tablon) {
       img.css("position", "relative");
       //Se genera aleatoriamente la posición y a partir de la segunda imagen se comprueba que no colisionen
       do {
-         alert(i);
          img.css("left", Math.random() * 500 + 30 + "px");
          img.css("top", Math.random() * 300 + 30 + "px");
          elem.append(img);
@@ -48,7 +47,6 @@ function createImages(tablon) {
             break;
          }
       } while (comprobarPosicion(positions, img));
-      alert("puesto");
 
       positions.push(img);
    }

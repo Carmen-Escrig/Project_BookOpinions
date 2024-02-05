@@ -49,6 +49,19 @@ class BookRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return Book[] Returns an array of Book objects
+     */
+    public function findRandom(): array
+    {
+        return $this->createQueryBuilder('b')
+            ->orderBy('RAND()')
+            ->setMaxResults(6)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
 //    public function findOneBySomeField($value): ?Book
 //    {

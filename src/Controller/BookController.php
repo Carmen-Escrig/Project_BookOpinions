@@ -153,6 +153,25 @@ class BookController extends AbstractController
         return new JsonResponse($arrayCollection);
     }
 
+    #[Route('/book/getRandomBooks', name: 'book_get_Random')]
+    public function randomBooks(ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger): JsonResponse
+    {
+        //$this->denyAccessUnlessGranted('ROLE_USER');
+
+        $bookRepository = $doctrine->getRepository(Book::class);
+        $books = $bookRepository->findRandom();
+
+        foreach ($books as $book) {
+            $arrayCollection[] = array(
+                "Title" => $book->getTitle(),
+                "Slug" => $book->getSlug(),
+                "Cover" => $book->getCover(),
+            );
+        }
+
+        return new JsonResponse($arrayCollection);
+    }
+
     #[Route('/book/{slug}', name: 'book')]
     public function book(ManagerRegistry $doctrine, $slug): Response
     {
