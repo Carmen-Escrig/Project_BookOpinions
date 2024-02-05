@@ -1,4 +1,4 @@
 $(document).ready(function () {
     //$('.your-class').slick();
-    $("#board").createBoard();
+    $("#board").createBoard("/book/getMostPopular");
 });
