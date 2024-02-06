@@ -5,4 +5,4 @@
 	{{ review.book.title }}</p>
 
 <img id="like" src="{{liked ? asset('img/like.png') : asset('img/nolike.png') }}" alt="liked" height="20px" slug="{{review.slug}}">
-<div id="num">{{review.numLikes}}</div>
+<div id="num">{{user.numLikes}}</div>

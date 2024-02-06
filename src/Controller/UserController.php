@@ -86,8 +86,8 @@ class UserController extends AbstractController
     }
 
     //Ruta para ver el perfil del usuario
-    #[Route('/user/{slug}', name: 'user_profile')]
-    public function userProfile(): Response
+    #[Route('/profile/{slug}', name: 'user_profile')]
+    public function userProfile(ManagerRegistry $doctrine, $slug): Response
     {
         $userRepository = $doctrine->getRepository(User::class);
         $user = $userRepository->findOneBy(["slug" => $slug]);

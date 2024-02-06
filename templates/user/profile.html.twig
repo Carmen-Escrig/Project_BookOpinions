@@ -1,11 +1,10 @@
 {% extends 'base.html.twig'%}
 {% block title %}
-	{{ (review) ? review.title : 'Not found' }}
+	{{ (user) ? user.username : 'Not found' }}
 {% endblock %}
 {% block body %}
-	{% if review %}
-		{{include ("partials/_data-review.html.twig", {'review': review, 'liked': liked})}}
-		{{ form(commentForm) }}
+	{% if user %}
+		{{include ("partials/_data-profile.html.twig", {'user': user, 'followed': followed})}}
 	{% else %}
 		<p>Review not found</p>
 	{% endif %}

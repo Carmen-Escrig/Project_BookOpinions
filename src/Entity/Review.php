@@ -228,14 +228,14 @@ class Review
         return $this;
     }
 
-    public function addNumLikes(): ?int
+    public function addNumLikes(): static
     {
         $this->num_likes = $this->num_likes + 1;
 
         return $this;
     }
 
-    public function subNumLikes(): ?int
+    public function subNumLikes(): static
     {
         $this->num_likes = $this->num_likes - 1;
 

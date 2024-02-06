@@ -9,12 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use App\Entity\Review;
 use App\Entity\User;
 use App\Entity\Tag;
 use App\Entity\Comment;
+use App\Entity\Like;
 
 use App\Form\ReviewFormType;
 use App\Form\CommentFormType;
@@ -171,7 +173,7 @@ class ReviewController extends AbstractController
     public function likeReview(ManagerRegistry $doctrine, $slug): JsonResponse
     {
         $reviewRepository = $doctrine->getRepository(review::class);
-        $review = $repository->findOneBy(["slug" => $slug]);
+        $review = $reviewRepository->findOneBy(["slug" => $slug]);
         $userRepository = $doctrine->getRepository(User::class);
         $user = $userRepository->find($this->getUser()->getId());
         $likeRepository = $doctrine->getRepository(Like::class);
@@ -213,6 +215,16 @@ class ReviewController extends AbstractController
         $review = $reviewRepository->findOneBy(["slug" => $slug]);
 
         if ($review) {
+            if ($this->getUser()) {
+                $userRepository = $doctrine->getRepository(User::class);
+                $user = $userRepository->find($this->getUser()->getId());
+                $likeRepository = $doctrine->getRepository(Like::class);
+                $like = $likeRepository->findLikeByUserReview($user, $review);
+                $liked = $like ? true : false;
+            } else {
+                $liked = false;
+            }
+
             $comment = new Comment();
             $userRepository = $doctrine->getRepository(User::class);
             $user = $userRepository->find($this->getUser()->getId());
@@ -220,6 +232,7 @@ class ReviewController extends AbstractController
             $form = $this->createForm(CommentFormType::class, $comment);
             $form->handleRequest($request);
 
+            //Controlar que el usuario esté registrado
             if($form->isSubmitted() && $form->isValid()) {
                 $comment = $form->getData();
                 $comment->setContent($funcCommon->mention($comment->getContent()));
@@ -242,11 +255,13 @@ class ReviewController extends AbstractController
             return $this->render('review/review.html.twig', [
                 'review' => $review,
                 'commentForm' => $form->createView(),
+                'liked' => $liked
             ]);
         }
         return $this->render('review/review.html.twig', [
             'review' => null,
             'commentForm' => null,
+            'liked' => false
         ]);  
     }
 }

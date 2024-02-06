@@ -64,7 +64,6 @@ function filter(key) {
             filter = filter.replace(" ", "+");
             if (cacheResults[filter] == null) {
                 if (XMLHttpRequestObject) {
-
                     XMLHttpRequestObject.onreadystatechange = function () {
                         XMLHttpRequestObject.onreadystatechange = function () {
                             if (XMLHttpRequestObject.readyState == 4 &&
@@ -93,10 +92,7 @@ function filter(key) {
                 updateResults();
             }
         }
-
-
     }
-
 }
 
 //Si no se encuentran resultados se muestra un mensaje avisando

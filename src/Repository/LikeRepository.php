@@ -30,7 +30,7 @@ class LikeRepository extends ServiceEntityRepository
             ->andWhere('l.user = :u')
             ->setParameter('u', $user)
             ->andWhere('l.review = :r')
-            ->setPrrameter('r', $review)
+            ->setParameter('r', $review)
             ->getQuery()
             ->getOneOrNullResult()
         ;
