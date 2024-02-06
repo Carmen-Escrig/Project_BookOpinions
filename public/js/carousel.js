@@ -10,6 +10,10 @@ $(document).ready(function () {
     $('.slick-prev').click(function() {
         invoqueBoard();
     });
+
+    var input = document.getElementById("searchbar");
+    input.addEventListener("keyup", filter);
+
 });
 
 function invoqueBoard() {
@@ -23,5 +27,5 @@ function invoqueBoard() {
             link = "/book/getMonthlyPopular";
         }
 
-        board.createBoard(link);
+        board.createBoard({link: link});
 }

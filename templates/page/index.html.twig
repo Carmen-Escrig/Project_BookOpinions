@@ -76,8 +76,10 @@
 						<div class="col-md-6">
 							<form class="form-inline">
 								<span class="material-symbols-outlined" style="display:inline; position:relative; top: 5px">search</span>
-								<input type="text" class="form-control form-input" placeholder="Search anything..." style="display: inline !important;width: 80%">
+								<input id="searchbar" type="text" class="form-control form-input" placeholder="Search anything..." style="display: inline !important;width: 80%">
 							</form>
+							<div id="results">
+    						</div>
 						</div>
 					</div>
 				</div>
@@ -133,6 +135,7 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="{{ asset('js/plugins/jquery.bulletin-board.js') }}"></script>
 <script src="{{ asset('js/carousel.js') }}"></script>
+<script src="{{ asset('js/searchbar.js') }}"></script>
 
 
 {% endblock %}

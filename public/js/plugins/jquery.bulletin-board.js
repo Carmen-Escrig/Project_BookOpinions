@@ -4,6 +4,11 @@ jQuery.fn.createBoard = function (link) {
    this.each(function () {
       elem = $(this);
 
+      var configuration = {
+         link: "/book/getMostPopular",
+     }
+     jQuery.extend(configuration, link);
+
       $.post(link, function (data) {
          for (let i = 0; i < data.length; i++) {
             books[i] = {
