@@ -172,6 +172,17 @@ class BookController extends AbstractController
         return new JsonResponse($arrayCollection);
     }
 
+    #[Route('/book/title/{title}', name: 'book_by_title')]
+    public function bookByTitle(ManagerRegistry $doctrine, $title): Response
+    {
+        $bookRepository = $doctrine->getRepository(Book::class);
+        $book = $bookRepository->findOneBy(["title" => $title]);
+
+        return $this->render('book/book.html.twig', [
+            'book' => $book,
+        ]);
+    }
+
     #[Route('/book/{slug}', name: 'book')]
     public function book(ManagerRegistry $doctrine, $slug): Response
     {

@@ -1,3 +1,16 @@
 .board {
     background-image: url(../img/board.png);
 }
+
+#results li{
+    list-style: none;
+}
+#results li a{
+    color: black;
+    text-decoration: none;
+}
+
+.selected {
+    background-color: gray;
+    color: white;
+}

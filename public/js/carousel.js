@@ -11,8 +11,18 @@ $(document).ready(function () {
         invoqueBoard();
     });
 
-    var input = document.getElementById("searchbar");
-    input.addEventListener("keyup", filter);
+    $('#searchbar').keypress(function(event) {
+        if ( event.which == 13) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    });
+
+    $('#searchbar').keyup(function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        filter(event.which);
+    });
 
 });
 

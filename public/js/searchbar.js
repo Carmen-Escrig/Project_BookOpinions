@@ -19,11 +19,11 @@ Array.prototype.formatList = function () {
 
     for (var i = 0; i < this.length; i++) {
         if (i == selectedElement) {
-            var li = $("<li class=\"selected\"><a href='book.html?title=" + this[i] + "'>" + this[i] + "</a></li>");
+            var li = $("<li class=\"selected\"><a href='/book/title/" + this[i] + "'>" + this[i] + "</a></li>");
             ul.append(li);
         }
         else {
-            var li = $("<li><a href='book.html?title=" + this[i] + "'>" + this[i] + "</a></li>");
+            var li = $("<li><a href='/book/title/" + this[i] + "'>" + this[i] + "</a></li>");
             ul.append(li);
         }
 
@@ -34,8 +34,7 @@ Array.prototype.formatList = function () {
 
 //Función que busca los titulos de los libros que se corresponden con la búsqueda
 
-function filter(event) {
-    var key = event.keyCode;
+function filter(key) {
 
     if (key == 40) { // Flecha Abajo
         if (selectedElement + 1 < results.length) {
@@ -50,11 +49,10 @@ function filter(event) {
         showResults();
     }
     else if (key == 13) { // ENTER o Intro
-
         selectElement();
     }
     else {
-        var filter = event.currentTarget.value;
+        var filter = $('#searchbar').val();
 
         // Si es la key de borrado y el texto es vac�o, ocultar la lista
         if (key == 8 && filter == "") {
@@ -116,7 +114,7 @@ function updateResults() {
 //Cuando se selecciona un elemento se va a su libro
 function selectElement() {
     if (results[selectedElement]) {
-        window.location.href = "book.html?id=" + Object.keys(results[selectedElement])[0];
+        window.location.href = "/book/title/" + results[selectedElement];
         deleteList();
     }
 }
