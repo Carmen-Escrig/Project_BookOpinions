@@ -6,8 +6,8 @@ jQuery.fn.createBoard = function (link) {
 
       var configuration = {
          link: "/book/getMostPopular",
-     }
-     jQuery.extend(configuration, link);
+      }
+      jQuery.extend(configuration, link);
 
       $.post(link, function (data) {
          for (let i = 0; i < data.length; i++) {
@@ -39,7 +39,7 @@ function createImages(tablon) {
             src: "img/" + books[i]["cover"],
             width: '100px',
             height: '150px',
-            alt: 'imagen'
+            alt: 'imagen',
          }).appendTo(elem);
 
       img.css("position", "relative");
@@ -48,6 +48,22 @@ function createImages(tablon) {
          img.css("left", Math.random() * 500 + 30 + "px");
          img.css("top", Math.random() * 300 + 30 + "px");
          elem.append(img);
+         img.click(function () {
+            $("#lightbox_image").attr("src", img.attr("src"))
+            $( ".lightbox" ).dialog( "option", "title", books[i]["title"] );
+            $(".lightbox").dialog("option", "buttons",
+               [
+                  {
+                     text: "See Book",
+                     icon: "ui-icon-zoomin",
+                     click: function () {
+                        window.location.href = "/book/" + books[i]["slug"];
+                     }
+                  },
+               ]
+            );
+            $(".lightbox").dialog("open");
+         });
          if (i == 0) {
             break;
          }
