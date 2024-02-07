@@ -36,10 +36,12 @@ function createImages(tablon) {
       var img = $('<img />',
          {
             class: 'board_img',
-            src: "img/" + books[i]["cover"],
+            src: "/uploads/covers/" + books[i]["cover"],
             width: '100px',
             height: '150px',
             alt: 'imagen',
+            "data-title": books[i]["title"],
+            "data-link": "/book/" + books[i]["slug"],
          }).appendTo(elem);
 
       img.css("position", "relative");
@@ -49,15 +51,15 @@ function createImages(tablon) {
          img.css("top", Math.random() * 300 + 30 + "px");
          elem.append(img);
          img.click(function () {
-            $("#lightbox_image").attr("src", img.attr("src"))
-            $( ".lightbox" ).dialog( "option", "title", books[i]["title"] );
+            $("#lightbox_image").attr("src", $( this ).attr("src"))
+            $( ".lightbox" ).dialog( "option", "title", $( this ).attr("data-title") );
             $(".lightbox").dialog("option", "buttons",
                [
                   {
                      text: "See Book",
                      icon: "ui-icon-zoomin",
                      click: function () {
-                        window.location.href = "/book/" + books[i]["slug"];
+                        window.location.href = $( this ).attr("data-link");
                      }
                   },
                ]
