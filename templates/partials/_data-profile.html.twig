@@ -1,8 +1,5 @@
-<p>{{ review.content}}</p>
-<p>By:
-	{{ review.creator.username }}</p>
-<p>Book:
-	{{ review.book.title }}</p>
+<p>{{ user.username}}</p>
+<p>Description:
+	{{ user.description }}</p>
 
-<img id="like" src="{{liked ? asset('img/like.png') : asset('img/nolike.png') }}" alt="liked" height="20px" slug="{{review.slug}}">
-<div id="num">{{user.numLikes}}</div>
+<img id="follow" src="{{following ? asset('img/following.png') : asset('img/no_following.png') }}" alt="following" height="30px" slug="{{user.slug}}">

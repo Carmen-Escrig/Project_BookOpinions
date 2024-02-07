@@ -10,6 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\Entity\User;
 use App\Entity\Review;
@@ -22,7 +23,7 @@ class UserController extends AbstractController
     public function followUser(ManagerRegistry $doctrine, $slug): JsonResponse
     {
         $userRepository = $doctrine->getRepository(User::class);
-        $profile = $repository->findOneBy(["slug" => $slug]);
+        $profile = $userRepository->findOneBy(["slug" => $slug]);
         $user = $userRepository->find($this->getUser()->getId());
 
         if($profile != $user) {
@@ -90,13 +91,21 @@ class UserController extends AbstractController
     public function userProfile(ManagerRegistry $doctrine, $slug): Response
     {
         $userRepository = $doctrine->getRepository(User::class);
-        $user = $userRepository->findOneBy(["slug" => $slug]);
-        $reviews = $user->getReviews();
+        $profile = $userRepository->findOneBy(["slug" => $slug]);
+        $user = $userRepository->find($this->getUser()->getId());
+
+        $following = false;
+
+        if($user != $profile) {
+            $following =  in_array($user, ($profile->getFollowers()->toArray())) ? true : false;
+        }
+        //$reviews = $user->getReviews();
 
         return $this->render('user/profile.html.twig', [
             'controller_name' => 'UserController',
-            'user' => $user,
-            'reviews' => $reviews
+            'user' => $profile,
+            'following' => $following
+            //'reviews' => $reviews
         ]);
     }
 }

@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body %}
 	{% if user %}
-		{{include ("partials/_data-profile.html.twig", {'user': user, 'followed': followed})}}
+		{{include ("partials/_data-profile.html.twig", {'user': user, 'following': following})}}
 	{% else %}
 		<p>Review not found</p>
 	{% endif %}
