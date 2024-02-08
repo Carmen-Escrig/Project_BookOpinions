@@ -106,4 +106,3 @@ function comprobarPosicion(positions, position) {
 
    return false;
 }
-
