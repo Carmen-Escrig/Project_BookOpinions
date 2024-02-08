@@ -21,7 +21,15 @@ jQuery.fn.createBoard = function (link) {
          createImages(elem);
       }, "json");
 
-      createImages(elem);
+      //createImages(elem);
+   });
+   return this;
+};
+
+jQuery.fn.destroyBoard = function (link) {
+   this.each(function () {
+      elem = $(this);
+      elem.find(".board_img").remove();
    });
    return this;
 };
@@ -45,21 +53,23 @@ function createImages(tablon) {
          }).appendTo(elem);
 
       img.css("position", "relative");
+      img.css("display", "inline");
       //Se genera aleatoriamente la posición y a partir de la segunda imagen se comprueba que no colisionen
       do {
          img.css("left", Math.random() * 500 + 30 + "px");
-         img.css("top", Math.random() * 300 + 30 + "px");
+         img.css("top", Math.random() * 250 + 30 + "px");
          elem.append(img);
          img.click(function () {
-            $("#lightbox_image").attr("src", $( this ).attr("src"))
-            $( ".lightbox" ).dialog( "option", "title", $( this ).attr("data-title") );
+            $("#lightbox_image").attr("src", $(this).attr("src"))
+            $(".lightbox").dialog("option", "title", $(this).attr("data-title"));
+            var redirect = ($(this).attr("data-link"));
             $(".lightbox").dialog("option", "buttons",
                [
                   {
                      text: "See Book",
                      icon: "ui-icon-zoomin",
                      click: function () {
-                        window.location.href = $( this ).attr("data-link");
+                        window.location.href = redirect;
                      }
                   },
                ]
@@ -79,10 +89,10 @@ function createImages(tablon) {
 //Función que compara si se chocan dos imagenes
 function isCollide(a, b) {
    return !(
-      ((a.offset().top() + 150) < (b.offset().top())) ||
-      (a.offset().top() > (b.offset().top() + 150)) ||
-      ((a.offset().left() + 100) < b.offset().left()) ||
-      (a.offset().left() > (b.offset().left() + 100))
+      ((a.offset().top + 150) < (b.offset().top)) ||
+      (a.offset().top > (b.offset.top + 150)) ||
+      ((a.offset().left + 100) < b.offset().left) ||
+      (a.offset().left > (b.offset().left + 100))
    );
 }
 

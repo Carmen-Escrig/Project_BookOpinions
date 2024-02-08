@@ -4,10 +4,25 @@ $(document).ready(function () {
 
 
     $('.slick-next').click(function () {
+        var index = parseInt($('.slick-current').attr("data-slick-index"));
+        index = index == 0 ? 2 : index - 1; 
+        $('.slick-slide').each(function() {
+            if($(this).attr("data-slick-index") == index) {
+                $(this).find(".board").destroyBoard();
+            }
+        });
+        
         invoqueBoard();
     });
 
     $('.slick-prev').click(function () {
+        var index = parseInt($('.slick-current').attr("data-slick-index"));
+        index = index == 2 ? 0 : index + 1;
+        $('.slick-slide').each(function() {
+            if($(this).attr("data-slick-index") == index) {
+                $(this).find(".board").destroyBoard();
+            }
+        });
         invoqueBoard();
     });
 
@@ -55,5 +70,5 @@ function invoqueBoard() {
         link = "/book/getMonthlyPopular";
     }
 
-    board.createBoard({ link: link });
+    board.createBoard(link);
 }

@@ -161,7 +161,7 @@ class Book
         return $this;
     }
 
-    public function addNumReviews(): ?int
+    public function addNumReviews(): static
     {
         $this->num_reviews = $this->num_reviews + 1;
 
