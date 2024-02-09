@@ -45,15 +45,6 @@ $(document).ready(function () {
         modal: true,
         resizable: false,
         autoOpen: false,
-        buttons: [
-            {
-                text: "See Book",
-                icon: "ui-icon-zoomin",
-                click: function () {
-                    window.location.href = "/book/" + results[selectedElement];
-                }
-            }
-        ]
     });
 });
 
