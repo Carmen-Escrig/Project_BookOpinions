@@ -15,20 +15,15 @@
 			<header class="border-bottom lh-1 py-3">
 				<div class="row flex-nowrap justify-content-between align-items-center">
 					<div class="col-4 pt-1">
-						<a class="link-secondary" href="#">Subscribe</a>
 					</div>
 					<div class="col-4 text-center">
 						<a class="blog-header-logo text-body-emphasis text-decoration-none" href="#"><img src="{{ asset('img/sketching.png') }}" alt="Book Opinions" height="200px"/></a>
 					</div>
 					<div class="col-4 d-flex justify-content-end align-items-center">
-						<a class="link-secondary" href="#" aria-label="Search">
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewbox="0 0 24 24">
-								<title>Search</title>
-								<circle cx="10.5" cy="10.5" r="7.5"/>
-								<path d="M21 21l-5.2-5.2"/>
-							</svg>
-						</a>
-						<a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+            <div class="btn btn-sm btn-outline-secondary">
+              <a class="nav-item link-body-emphasis" href="/login">Log in</a> /
+              <a class="nav-item link-body-emphasis" href="/register">Register</a>
+            </div>
 					</div>
 				</div>
 			</header>
@@ -63,7 +58,15 @@
 			<hr class="solid">
 
 
-			<div class="row p-md-5 mb-3"></div>
+			<div class="row p-md-5 mb-3">
+      
+      <div class="vr" style="padding:0px !important"></div>
+
+      {% for review in reviews %}
+      	{{include ("partials/_review-thumbnail.html.twig", {'review': review})}}
+      {% endfor %}
+
+      </div>
 
 			<hr class="solid">
 
@@ -129,7 +132,7 @@
 			</div>
 		</div>
 
-		{# Dialogo #}
+		<!-- Dialogo -->
 			 
 		<div class="lightbox" title="">
     		<div class="lightbox-content">
@@ -137,157 +140,6 @@
     		  </div>
   			</div>
 		</div>
-
-		{# Footer #}
-
-  <!-- Footer -->
-  <footer
-          class="text-center text-lg-start text-white"
-          style="background-color: #3e4551"
-          >
-    <!-- Grid container -->
-    <div class="container p-4 pb-0">
-      <!-- Section: Links -->
-      <section class="">
-        <!--Grid row-->
-        <div class="row">
-          <!--Grid column-->
-          <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">FOOTER CONTENT</h5>
-
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Molestiae modi cum ipsam ad, illo possimus laborum ut
-              reiciendis obcaecati. Ducimus, quas. Corrupti, pariatur eaque?
-              Reiciendis assumenda iusto sapiente inventore animi?
-            </p>
-          </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
-            
-          </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Links</h5>
-
-            <ul class="list-unstyled mb-0">
-              <li>
-                <a href="#!" class="text-white">Link 1</a>
-              </li>
-              <li>
-                <a href="#!" class="text-white">Link 2</a>
-              </li>
-              <li>
-                <a href="#!" class="text-white">Link 3</a>
-              </li>
-              <li>
-                <a href="#!" class="text-white">Link 4</a>
-              </li>
-            </ul>
-          </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Links</h5>
-
-            <ul class="list-unstyled mb-0">
-              <li>
-                <a href="#!" class="text-white">Link 1</a>
-              </li>
-              <li>
-                <a href="#!" class="text-white">Link 2</a>
-              </li>
-              <li>
-                <a href="#!" class="text-white">Link 3</a>
-              </li>
-              <li>
-                <a href="#!" class="text-white">Link 4</a>
-              </li>
-            </ul>
-          </div>
-          <!--Grid column-->
-        </div>
-        <!--Grid row-->
-      </section>
-      <!-- Section: Links -->
-
-      <hr class="mb-4" />
-
-      <!-- Section: Social media -->
-      <section class="mb-4 text-center">
-        <!-- Facebook -->
-        <a
-           class="btn btn-outline-light btn-floating m-1"
-           href="#!"
-           role="button"
-           ><i class="fab fa-facebook-f"></i
-          ></a>
-
-        <!-- Twitter -->
-        <a
-           class="btn btn-outline-light btn-floating m-1"
-           href="#!"
-           role="button"
-           ><i class="fab fa-twitter"></i
-          ></a>
-
-        <!-- Google -->
-        <a
-           class="btn btn-outline-light btn-floating m-1"
-           href="#!"
-           role="button"
-           ><i class="fab fa-google"></i
-          ></a>
-
-        <!-- Instagram -->
-        <a
-           class="btn btn-outline-light btn-floating m-1"
-           href="#!"
-           role="button"
-           ><i class="fab fa-instagram"></i
-          ></a>
-
-        <!-- Linkedin -->
-        <a
-           class="btn btn-outline-light btn-floating m-1"
-           href="#!"
-           role="button"
-           ><i class="fab fa-linkedin-in"></i
-          ></a>
-
-        <!-- Github -->
-        <a
-           class="btn btn-outline-light btn-floating m-1"
-           href="#!"
-           role="button"
-           ><i class="fab fa-github"></i
-          ></a>
-      </section>
-      <!-- Section: Social media -->
-    </div>
-    <!-- Grid container -->
-
-    <!-- Copyright -->
-    <div
-         class="text-center p-3"
-         style="background-color: rgba(0, 0, 0, 0.2)"
-         >
-      © 2020 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/"
-         >MDBootstrap.com</a
-        >
-    </div>
-    <!-- Copyright -->
-  </footer>
-  <!-- Footer -->
-
-
-
 
 		{% endblock %}
 

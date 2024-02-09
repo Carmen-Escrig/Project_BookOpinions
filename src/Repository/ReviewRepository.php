@@ -21,6 +21,19 @@ class ReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, Review::class);
     }
 
+    /**
+     * @return Review[] Returns an array of Review objects
+     */
+    public function findRandom(): array
+    {
+        return $this->createQueryBuilder('b')
+            ->orderBy('RAND()')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Review[] Returns an array of Review objects
 //     */
