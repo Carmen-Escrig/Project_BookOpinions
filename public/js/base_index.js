@@ -39,8 +39,6 @@ $(document).ready(function () {
         filter(event.which);
     });
 
-    $("#seeBook").click();
-
     $(".lightbox").dialog({
         height: 600,
         width: 450,
