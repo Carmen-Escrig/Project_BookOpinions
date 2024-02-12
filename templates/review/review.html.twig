@@ -1,17 +1,52 @@
 {% extends 'base.html.twig'%}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/nav-bar.css')}}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css')}}"/>
+
+{% endblock %}
 {% block title %}
 	{{ (review) ? review.title : 'Not found' }}
 {% endblock %}
 {% block body %}
-	{% if review %}
-		{{include ("partials/_data-review.html.twig", {'review': review, 'liked': liked})}}
-		{{ form(commentForm) }}
-	{% else %}
-		<p>Review not found</p>
-	{% endif %}
-{% endblock %}
 
+	<header class="header" id="header">
+		<div class="header_toggle">
+			<span id="header-toggle" class="material-symbols-outlined">menu</span>
+		</i>
+	</div>
+
+</header>
+{{ include ('partials/_side-navbar.html.twig')}}
+
+
+<!--Container Main start-->
+<div class="container d-md-flex align-items-stretch bg-light">
+	<div id="content" class="p-4 p-md-3 pt-5">
+		{% if review %}
+
+			{{include ("partials/_data-review.html.twig", {'review': review})}}
+			<!--Coment Section-->
+
+			<h3>Comments</h3>
+			{{ form(commentForm) }}
+
+
+				{% else %}
+					<h3>Review Not Found</h3>
+			{% endif %}
+
+
+		</div>
+
+
+		{{ include ('partials/_aside.html.twig')}}
+
+	</div>
+
+	<!--Container Main end-->
+{% endblock %}
 {% block javascripts_bottom %}
+	<script src="{{ asset('js/navbar.js') }}"></script>
 	<script src="{{ asset('js/plugins/jquery.addRemove.js') }}"></script>
 	<script src="{{ asset('js/server.js') }}"></script>
 {% endblock %}

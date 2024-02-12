@@ -1,7 +1,21 @@
-<p>{{ review.content}}</p>
-<p>By:
-	{{ review.creator.username }}</p>
-<p>Book:
-	{{ review.book.title }}</p>
-<img id="like" src="{{liked ? asset('img/like.png') : asset('img/nolike.png') }}" alt="liked" height="20px" slug="{{review.slug}}">
-<div id="num">{{review.numLikes}}</div>
+
+	<h2 class="title">{{(review) ? review.title : "Not Found"}}</h2>
+
+	<div class="text-center">
+		<p><img src="{{ asset('uploads/covers/' ~ review.book.cover) }}" height="200">
+		</p>
+		<p>Book:
+			{{ review.book.title }}</p>
+	</p>
+	</div>
+<p class="text-justify">{{ review.content}}</p>
+<hr>
+<div>
+	By:{{ review.creator.username }}
+	<div class="vr" style="padding:0px !important"></div>
+
+	<div class="d-inline" id="num">{{review.numLikes}}</div>
+	<img id="like" src="{{liked ? asset('img/like.png') : asset('img/nolike.png') }}" alt="liked" height="20px" slug="{{review.slug}}">
+
+
+</div>

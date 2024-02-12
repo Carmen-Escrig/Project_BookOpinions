@@ -1,11 +1,57 @@
 {% extends 'base.html.twig'%}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/nav-bar.css')}}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css')}}"/>
+
+{% endblock %}
 {% block title %}
 	{{ (book) ? book.title : 'Not found' }}
 {% endblock %}
 {% block body %}
-	{% if book %}
-		{{include ("partials/_data-book.html.twig", {'book': book})}}
-	{% else %}
-		<p>Book not found</p>
-	{% endif %}
+
+	<header class="header" id="header">
+		<div class="header_toggle">
+			<span id="header-toggle" class="material-symbols-outlined">menu</span>
+		</i>
+	</div>
+
+</header>
+{{ include ('partials/_side-navbar.html.twig')}}
+
+
+<!--Container Main start-->
+<div class="container d-md-flex align-items-stretch bg-light">
+
+	<div id="content" class="p-4 p-md-5 pt-5 container-scroll">
+
+		<h2 class="title">{{(book) ? book.title : "Not found" }}</h2>
+
+		<div class="text-center">
+			<p><img src="{{ asset('uploads/covers/' ~ book.cover) }}" height="200">
+			</p>
+		</div>
+		<hr>
+		<div>
+			By:
+			{% for author in book.authors %}
+				{{ book.author.name }}
+			{% endfor %}
+
+			{% if reviews %}
+				{% for review in reviews %}
+					{{include ("partials/_review-thumbnail.html.twig", {'review': review})}}
+				{% endfor %}
+				{% endif %}
+
+			</div>
+
+
+		</div>
+
+
+		{{ include ('partials/_aside.html.twig')}}</div><!--Container Main end-->{% endblock %}
+{% block javascripts_bottom %}
+	<script src="{{ asset('js/navbar.js') }}"></script>
+	<script src="{{ asset('js/plugins/jquery.addRemove.js') }}"></script>
+	<script src="{{ asset('js/server.js') }}"></script>
 {% endblock %}

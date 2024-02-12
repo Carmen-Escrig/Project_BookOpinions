@@ -20,7 +20,7 @@ class PageController extends AbstractController
     public function index(ManagerRegistry $doctrine, Request $request): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('home_page', []);
+            return $this->redirectToRoute('home', []);
         }
 
         $reviewRepository = $doctrine->getRepository(Review::class);
@@ -33,10 +33,13 @@ class PageController extends AbstractController
     }
 
     #[Route('/home', name: 'home')]
-    public function home(): Response
+    public function home(ManagerRegistry $doctrine, Request $request): Response
     {
+        $reviewRepository = $doctrine->getRepository(Review::class);
+        $reviews = $reviewRepository->findRandom();
         return $this->render('page/home.html.twig', [
             'controller_name' => 'PageController',
+            'reviews' => $reviews
         ]);
     }
 }
