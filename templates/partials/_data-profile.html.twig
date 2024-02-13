@@ -1,5 +1,16 @@
-<p>{{ user.username}}</p>
+<div class="text-center">
+	<p><img class="profile-picture rounded-circle" src="{{ asset('uploads/profile_pictures/' ~ user.profilePhoto) }}" height="200" width="200"></p>
+	<h4 class="title">@{{ (user) ? user.username : 'Not found' }}</h4>
+</div>
+<div class="row d-flex justify-content-center">
+<p class="col-1 profile-element">Followers: </p>
+<p class="col-1 profile-element">Following: </p>
+<p class="col-1 profile-element"><img class="follow" id="follow" src="{{following ? asset('img/following.png') : asset('img/no_following.png') }}" alt="following" height="30px" slug="{{user.slug}}"></p>
+</div>
+<hr>
 <p>Description:
 	{{ user.description }}</p>
-
-<img id="follow" src="{{following ? asset('img/following.png') : asset('img/no_following.png') }}" alt="following" height="30px" slug="{{user.slug}}">
+<hr>
+{% for review in user.reviews %}
+	{{include ("partials/_review-thumbnail.html.twig", {'review': review})}}
+{% endfor %}

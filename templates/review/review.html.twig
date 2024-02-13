@@ -14,6 +14,8 @@
 			<span id="header-toggle" class="material-symbols-outlined">menu</span>
 		</i>
 	</div>
+	<h2>Review</h2>
+
 
 </header>
 {{ include ('partials/_side-navbar.html.twig')}}
@@ -29,10 +31,13 @@
 
 			<h3>Comments</h3>
 			{{ form(commentForm) }}
-
-
-				{% else %}
-					<h3>Review Not Found</h3>
+				<ul class="list-group">
+					{% for comment in review.comments %}
+						{{include ("partials/_data-comment.html.twig", {'comment': comment})}}
+					{% endfor %}
+				</ul>
+			{% else %}
+				<h3>Review Not Found</h3>
 			{% endif %}
 
 

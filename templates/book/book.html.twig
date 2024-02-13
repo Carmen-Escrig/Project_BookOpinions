@@ -2,7 +2,6 @@
 {% block stylesheets %}
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/nav-bar.css')}}"/>
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css')}}"/>
-
 {% endblock %}
 {% block title %}
 	{{ (book) ? book.title : 'Not found' }}
@@ -14,6 +13,7 @@
 			<span id="header-toggle" class="material-symbols-outlined">menu</span>
 		</i>
 	</div>
+<h2>{{(book) ? book.title : "Not found" }}</h2>
 
 </header>
 {{ include ('partials/_side-navbar.html.twig')}}
@@ -22,36 +22,24 @@
 <!--Container Main start-->
 <div class="container d-md-flex align-items-stretch bg-light">
 
-	<div id="content" class="p-4 p-md-5 pt-5 container-scroll">
-
-		<h2 class="title">{{(book) ? book.title : "Not found" }}</h2>
-
-		<div class="text-center">
-			<p><img src="{{ asset('uploads/covers/' ~ book.cover) }}" height="200">
-			</p>
-		</div>
-		<hr>
-		<div>
-			By:
-			{% for author in book.authors %}
-				{{ book.author.name }}
+	<div id="content" class="p-4 p-md-3 pt-5 container-scroll">
+		{% if book %}
+			{{include ("partials/_data-book.html.twig", {'book': book})}}
+			{% for review in book.reviews %}
+				{{include ("partials/_review-thumbnail.html.twig", {'review': review})}}
 			{% endfor %}
-
-			{% if reviews %}
-				{% for review in reviews %}
-					{{include ("partials/_review-thumbnail.html.twig", {'review': review})}}
-				{% endfor %}
-				{% endif %}
-
 			</div>
+		{% else %}
+			<h2 class="title">Not found</h2>
+		{% endif %}
+	</div>
+	{{ include ('partials/_aside.html.twig') }}
+</div>
+<!--Container Main end-->
 
-
-		</div>
-
-
-		{{ include ('partials/_aside.html.twig')}}</div><!--Container Main end-->{% endblock %}
+{% endblock %}
 {% block javascripts_bottom %}
-	<script src="{{ asset('js/navbar.js') }}"></script>
-	<script src="{{ asset('js/plugins/jquery.addRemove.js') }}"></script>
-	<script src="{{ asset('js/server.js') }}"></script>
+<script src="{{ asset('js/navbar.js') }}"></script>
+<script src="{{ asset('js/plugins/jquery.addRemove.js') }}"></script>
+<script src="{{ asset('js/server.js') }}"></script>
 {% endblock %}

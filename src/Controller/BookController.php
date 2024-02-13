@@ -188,11 +188,9 @@ class BookController extends AbstractController
     {
         $bookRepository = $doctrine->getRepository(Book::class);
         $book = $bookRepository->findOneBy(["slug" => $slug]);
-        $reviews = $book->getReviews();
 
         return $this->render('book/book.html.twig', [
             'book' => $book,
-            'reviews' => $reviews
         ]);
     }
 }

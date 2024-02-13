@@ -5,3 +5,25 @@
 .title {
     padding: 20px 0px;
 }
+
+#sidebar {
+    min-width: 20%;
+}
+
+#content {
+    min-width: 80%;
+}
+.profile-element {
+    padding: 10px;
+}
+
+
+
+#follow {
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+.list-group-item img {
+    margin-right: 20px;
+}

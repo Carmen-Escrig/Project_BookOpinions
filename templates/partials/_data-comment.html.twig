@@ -1,2 +1,2 @@
-<p>{{ comment.content}}</p>
-<p>By: {{ comment.user.username }}</p>
+<li class="list-group-item"><img class="profile-picture rounded-circle" src="{{ asset('uploads/profile_pictures/' ~ comment.user.profilePhoto) }}" height="50" width="50"><a href="">@{{ comment.user.username }}</a>: {{ comment.content }}
+</li>
